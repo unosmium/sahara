@@ -3,7 +3,10 @@
 require 'sciolyff'
 
 run lambda { |env|
+  # may be nominally encoded as ASCII-8BIT, use force_encoding('UTF-8') if you
+  # need to mix this string with other (standard) UTF-8 strings
   body = Rack::Request.new(env).body.read
+
   validator = SciolyFF::Validator.new
   content = {}
 
