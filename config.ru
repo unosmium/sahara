@@ -10,7 +10,7 @@ run lambda { |env|
   if body.empty?
     content[:message] = 'Please POST in SciolyFF (JSON or YAML)'
   elsif validator.valid? body
-    content[:html] = SciolyFF::Interpreter.new(body).html
+    content[:html] = SciolyFF::Interpreter.new(body).to_html
   else
     content[:log] = validator.last_log.split("\n")
   end
