@@ -17,5 +17,10 @@ run lambda { |env|
   else
     content[:log] = validator.last_log.split("\n")
   end
-  [200, { 'Content-Type' => 'application/json' }, [content.to_json]]
+  [200,
+   {
+     'Content-Type' => 'application/json',
+     'Access-Control-Allow-Origin' => '*'
+   },
+   [content.to_json]]
 }
