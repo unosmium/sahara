@@ -1,26 +1,36 @@
 # frozen_string_literal: true
 
 require 'sciolyff'
+require 'cgi'
 
 run lambda { |env|
-  # may be nominally encoded as ASCII-8BIT, use force_encoding('UTF-8') if you
-  # need to mix this string with other (standard) UTF-8 strings
-  body = Rack::Request.new(env).body.read
+  req = Rack::Request.new(env)
+  res = Rack::Response.new(nil, 200, { 'Access-Control-Allow-Origin' => '*' })
+
+  body = req.body.read
+  # Ignore params in body because there are too many, leading to RangeError
+  type = CGI.parse(req.query_string)['type']&.first
 
   validator = SciolyFF::Validator.new
-  content = {}
 
-  if body.empty?
-    content[:message] = 'Please POST in SciolyFF (JSON or YAML)'
-  elsif validator.valid? body
-    content[:html] = SciolyFF::Interpreter.new(body).to_html
-  else
-    content[:log] = validator.last_log.split("\n")
-  end
-  [200,
-   {
-     'Content-Type' => 'application/json',
-     'Access-Control-Allow-Origin' => '*'
-   },
-   [content.to_json]]
+  res.body =
+    if body.empty?
+      { message: 'Please POST in SciolyFF (JSON or YAML)' }
+    elsif validator.valid? body
+      { html: SciolyFF::Interpreter.new(body).to_html }
+    else
+      res.status = 400
+      { log: validator.last_log.split("\n") }
+    end
+
+  res.content_type =
+    if type == 'html'
+      res.body = [res.body.values.join("\n")]
+      'text/html'
+    else
+      res.body = [res.body.to_json]
+      'application/json'
+    end
+
+  res.finish
 }
