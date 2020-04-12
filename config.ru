@@ -5,7 +5,7 @@ require 'cgi'
 
 run lambda { |env|
   req = Rack::Request.new(env)
-  res = Rack::Response.new(nil, 200, { 'Access-Control-Allow-Origin' => '*' })
+  res = Rack::Response.new(nil, 400, { 'Access-Control-Allow-Origin' => '*' })
 
   body = req.body.read
   # Ignore params in body because there are too many, leading to RangeError
@@ -17,9 +17,9 @@ run lambda { |env|
     if body.empty?
       { message: 'Please POST in SciolyFF (JSON or YAML)' }
     elsif validator.valid? body
+      res.status = 200
       { html: SciolyFF::Interpreter.new(body).to_html }
     else
-      res.status = 400
       { log: validator.last_log }
     end
 
