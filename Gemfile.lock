@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/unosmium/sciolyff.git
-  revision: 35a50c869be5421360a6b118d47544c2bb831599
+  revision: ae547d751d0756c2ae485753b6a37e21c0b319dd
   specs:
     sciolyff (0.9.1)
       optimist (~> 3.0)
