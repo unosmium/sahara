@@ -20,14 +20,17 @@ run lambda { |env|
       { html: SciolyFF::Interpreter.new(body).to_html }
     else
       res.status = 400
-      { log: validator.last_log.split("\n") }
+      { log: validator.last_log }
     end
 
   res.content_type =
     if type == 'html'
-      res.body = [res.body.values.join("\n")]
+      str = res.body.values.first
+      str = '<meta charset="utf-8"/>' + str unless res.body[:html]
+      res.body = [str]
       'text/html'
     else
+      res.body[:log] = res.body[:log].split("\n") if res.body[:log]
       res.body = [res.body.to_json]
       'application/json'
     end
