@@ -9,7 +9,10 @@ run lambda { |env|
 
   body = req.body.read
   # Ignore params in body because there are too many, leading to RangeError
-  type = CGI.parse(req.query_string)['type']&.first
+  params = CGI.parse(req.query_string)
+  type = params['type']&.first
+  hide_raw = params['hide_raw']&.first
+  color = params['color']&.first
 
   validator = SciolyFF::Validator.new
 
@@ -18,7 +21,9 @@ run lambda { |env|
       { message: 'Please POST in SciolyFF (JSON or YAML)' }
     elsif validator.valid? body
       res.status = 200
-      { html: SciolyFF::Interpreter.new(body).to_html }
+      { html: SciolyFF::Interpreter.new(body).to_html(
+        hide_raw: (hide_raw == 'true'), color: color
+      ) }
     else
       { log: validator.last_log }
     end

@@ -28,10 +28,17 @@
         border: none;
       }
 
-      button#button {
+      div#controls {
         position: absolute;
         bottom: 1em;
-        right: 2em;
+        right: 1em;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      div#controls > * {
+        margin-top: 0.5em;
       }
 
       iframe#output {
@@ -43,23 +50,37 @@
   <body>
     <div>
       <textarea id="input"></textarea>
-      <button id="button" type="button">Update</button>
+      <div id="controls">
+        <div>
+          <label for="hide_raw">Hide raw</label>
+          <input type="checkbox" id="hide_raw" name="hide_raw">
+        </div>
+        <input id="color" type="color" value="#000000">
+        <button id="button" type="button">Update</button>
+      </div>
     </div>
     <iframe id="output"></iframe>
     <script>
       const frame = document.querySelector('iframe#output');
       const button = document.querySelector('button#button');
+      const colorPicker = document.querySelector('input#color');
+      const hideRaw = document.querySelector('input#hide_raw');
       const loadingURL = URL.createObjectURL(
         new Blob(["<meta charset=\"utf-8\"/><pre>Loading...</pre>"])
       );
       const errorURL = URL.createObjectURL(
         new Blob(["<meta charset=\"utf-8\"/><pre>Output failed.</pre>"])
       );
+      const apiURL = 'https://intense-shore-26633.herokuapp.com/?type=html';
+      var hide_raw = hideRaw.checked;
+      var color = colorPicker.value;
       var objectURL;
 
       let updateFrame = function() {
         frame.src = loadingURL
-        fetch('https://intense-shore-26633.herokuapp.com//?type=html', {
+        let url = apiURL + '&hide_raw=' + hide_raw + '&color=' + color;
+        url = url.replace("#", "%23");
+        fetch(url, {
           method: 'POST',
           body: document.querySelector('textarea#input').value
         }).then(res => res.blob())
@@ -70,6 +91,8 @@
         }).catch(() => frame.src = errorURL)
       }
 
+      colorPicker.addEventListener("input", () => color = colorPicker.value);
+      hideRaw.addEventListener("change", () => hide_raw = hideRaw.checked);
       button.onclick = updateFrame;
     </script>
   </body>
