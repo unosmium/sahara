@@ -75,8 +75,11 @@
       var hide_raw = hideRaw.checked;
       var color = colorPicker.value;
       var objectURL;
+      var loading = false;
 
       let updateFrame = function() {
+        if (loading) { return; }
+        loading = true;
         frame.src = loadingURL
         let url = apiURL + '&hide_raw=' + hide_raw + '&color=' + color;
         url = url.replace("#", "%23");
@@ -89,6 +92,7 @@
           objectURL = URL.createObjectURL(res)
           frame.src = objectURL
         }).catch(() => frame.src = errorURL)
+          .finally(() => loading = false)
       }
 
       colorPicker.addEventListener("input", () => color = colorPicker.value);
