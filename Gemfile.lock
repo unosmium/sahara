@@ -1,15 +1,19 @@
 GIT
   remote: https://github.com/unosmium/sciolyff.git
-  revision: c607e49c6ac36abd074c1297bbf2dd40c3896d1e
+  revision: e8d399003437da2c3e5d6c0845a4e196ea48bc4f
   specs:
     sciolyff (0.9.1)
+      erubi (~> 1.9)
       optimist (~> 3.0)
+      psych (~> 3.1)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    erubi (1.9.0)
     nio4r (2.5.2)
     optimist (3.0.0)
+    psych (3.1.0)
     puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.2.2)
