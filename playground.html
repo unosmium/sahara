@@ -61,6 +61,7 @@
     </div>
     <iframe id="output"></iframe>
     <script>
+      const textarea = document.querySelector('textarea#input');
       const frame = document.querySelector('iframe#output');
       const button = document.querySelector('button#button');
       const colorPicker = document.querySelector('input#color');
@@ -72,20 +73,22 @@
         new Blob(["<meta charset=\"utf-8\"/><pre>Output failed.</pre>"])
       );
       const apiURL = 'https://intense-shore-26633.herokuapp.com/?type=html';
-      var hide_raw = hideRaw.checked;
-      var color = colorPicker.value;
       var objectURL;
       var loading = false;
 
       let updateFrame = function() {
         if (loading) { return; }
+        localStorage.setItem("hideraw", hideRaw.checked);
+        localStorage.setItem("color", colorPicker.value);
+        localStorage.setItem("textarea", textarea.value.trim());
         loading = true;
         frame.src = loadingURL
-        let url = apiURL + '&hide_raw=' + hide_raw + '&color=' + color;
+        let url = apiURL + '&hide_raw=' + hideRaw.checked + '&color=' +
+          colorPicker.value;
         url = url.replace("#", "%23");
         fetch(url, {
           method: 'POST',
-          body: document.querySelector('textarea#input').value
+          body: textarea.value
         }).then(res => res.blob())
           .then(res => {
           URL.revokeObjectURL(objectURL)
@@ -95,9 +98,21 @@
           .finally(() => loading = false)
       }
 
-      colorPicker.addEventListener("input", () => color = colorPicker.value);
-      hideRaw.addEventListener("change", () => hide_raw = hideRaw.checked);
       button.onclick = updateFrame;
+
+      let cached = localStorage.getItem("hideraw");
+      if(cached) { hideRaw.checked = cached }
+
+      cached = localStorage.getItem("color");
+      if(cached) { colorPicker.value = cached }
+
+      cached = localStorage.getItem("textarea");
+      if(cached) {
+        textarea.value = cached;
+      } else {
+        textarea.value =
+"Tournament:\n  level: Nationals\n  location: Zoom\n  division: C\n  year: 2020\n  date: 2020-04-01\n\nEvents:\n- name: Disease Detectives\n- name: Dynamic Planet\n\nTeams:\n- school: The Best Around\n  number: 1\n  state: AK\n- school: The Greatest Around\n  number: 2\n  state: HI\n\nPlacings:\n- event: Disease Detectives\n  team: 1\n  raw:\n    score: -1.0\n    tier: 2\n- event: Disease Detectives\n  team: 2\n  raw:\n    score: -10.0\n- event: Dynamic Planet\n  team: 1\n  raw:\n    score: 100.0\n- event: Dynamic Planet\n  team: 2\n  participated: false\n"
+      }
     </script>
   </body>
 </html>
