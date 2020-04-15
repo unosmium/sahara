@@ -5,6 +5,13 @@ require 'cgi'
 
 run lambda { |env|
   req = Rack::Request.new(env)
+
+  if req.path_info.match? %r{\A/playground(.html)?\z}
+    return [200,
+            { 'Content-Type' => 'text/html' },
+            File.open('playground.html')]
+  end
+
   res = Rack::Response.new(nil, 400, { 'Access-Control-Allow-Origin' => '*' })
 
   body = req.body.read
