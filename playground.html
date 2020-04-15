@@ -62,6 +62,9 @@
     </div>
     <iframe id="output"></iframe>
     <script>
+      if (window.innerWidth < 600) {
+        document.body.style.setProperty('height', `${window.innerHeight}px`);
+      }
       const textarea = document.querySelector('textarea#input');
       const frame = document.querySelector('iframe#output');
       const button = document.querySelector('button#button');
