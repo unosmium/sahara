@@ -31,7 +31,10 @@ run lambda { |env|
   res.content_type =
     if type == 'html'
       str = res.body.values.first
-      str = "<meta charset=\"utf-8\"/><pre>#{str}</pre>" unless res.body[:html]
+      unless res.body[:html]
+        str = '<meta charset="utf-8"/>'\
+              "<pre style=\"font-size: 1rem;\">#{str}</pre>"
+      end
       res.body = [str]
       'text/html'
     else

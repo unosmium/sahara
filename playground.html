@@ -26,6 +26,7 @@
         padding: 1em;
         resize: none;
         border: none;
+        font-size: 1rem;
       }
 
       div#controls {
@@ -66,11 +67,15 @@
       const button = document.querySelector('button#button');
       const colorPicker = document.querySelector('input#color');
       const hideRaw = document.querySelector('input#hide_raw');
+      let wrapPre = function(msg) {
+        return "<meta charset=\"utf-8\"/><pre style=\"font-size: 1rem;\">" +
+          msg + "</pre>"
+      }
       const loadingURL = URL.createObjectURL(
-        new Blob(["<meta charset=\"utf-8\"/><pre>Loading...</pre>"])
+        new Blob([wrapPre("Loading...")])
       );
       const errorURL = URL.createObjectURL(
-        new Blob(["<meta charset=\"utf-8\"/><pre>Output failed.</pre>"])
+        new Blob([wrapPre("Output failed.")])
       );
       const apiURL = 'https://intense-shore-26633.herokuapp.com/?type=html';
       var objectURL;
