@@ -101,7 +101,7 @@
       button.onclick = updateFrame;
 
       let cached = localStorage.getItem("hideraw");
-      if(cached) { hideRaw.checked = cached }
+      hideRaw.checked = (cached == 'true');
 
       cached = localStorage.getItem("color");
       if(cached) { colorPicker.value = cached }
