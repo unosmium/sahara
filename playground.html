@@ -12,8 +12,7 @@
         margin: 0;
         display: flex;
         flex-wrap: wrap;
-        height: 100vh; /* fallback */
-        height: var(--height, 100vh);
+        height: 99vh;
       }
 
       body > * {
@@ -63,8 +62,6 @@
     </div>
     <iframe id="output"></iframe>
     <script>
-      document.documentElement.style.setProperty('--height',
-        `${window.innerHeight-3}px`);
       const textarea = document.querySelector('textarea#input');
       const frame = document.querySelector('iframe#output');
       const button = document.querySelector('button#button');
