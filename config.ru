@@ -33,7 +33,7 @@ run lambda { |env|
       str = res.body.values.first
       unless res.body[:html]
         str = '<meta charset="utf-8"/>'\
-              "<pre style=\"font-size: 1rem;\">#{str}</pre>"
+              "<pre style=\"font-size: 16px;\">#{str}</pre>"
       end
       res.body = [str]
       'text/html'
