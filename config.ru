@@ -21,7 +21,7 @@ run lambda { |env|
   hide_raw = params['hide_raw']&.first
   color = params['color']&.first
 
-  validator = SciolyFF::Validator.new
+  validator = SciolyFF::Validator.new canonical: false
 
   res.body =
     if body.empty?
