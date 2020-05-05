@@ -1,0 +1,6 @@
+{
+  "name": "Sahara",
+  "description": "An API for converting SciolyFF to standalone HTML results",
+  "repository": "https://github.com/unosmium/sahara",
+  "keywords": ["Science Olympiad", "scoring", "SciolyFF"]
+}
