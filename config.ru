@@ -6,7 +6,7 @@ require 'cgi'
 run lambda { |env|
   req = Rack::Request.new(env)
 
-  if req.path_info.match? %r{\A/playground(.html)?\z}
+  unless req.path_info.match? %r{\A/api\z}
     return [200,
             { 'Content-Type' => 'text/html' },
             File.open('playground.html')]
