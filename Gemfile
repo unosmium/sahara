@@ -5,4 +5,4 @@ ruby '2.7.1'
 
 gem 'puma'
 gem 'rack'
-gem 'sciolyff', git: 'https://github.com/unosmium/sciolyff.git'
+gem 'sciolyff'
