@@ -5,6 +5,9 @@ files to HTML.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+Create your own instance on Heroku for free using the button above, or [preview
+one here](https://intense-shore-26633.herokuapp.com/).
+
 ## Usage
 
 Send a POST request to `<your heroku url>/api` with the content of a SciolyFF
