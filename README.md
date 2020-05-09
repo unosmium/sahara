@@ -1,6 +1,7 @@
 # Sahara
 
-Super-simple API for converting SciolyFF files to HTML.
+Super-simple API for converting [SciolyFF](https://github.com/unosmium/sciolyff)
+files to HTML.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
