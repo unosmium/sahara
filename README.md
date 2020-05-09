@@ -9,19 +9,19 @@ Super-simple API for converting SciolyFF files to HTML.
 Send a POST request to `<your heroku url>/api` with the content of a SciolyFF
 file in the body. The following optional parameters are supported:
 
-###`?type={html,json}`
+- `?type={html,json}`
 
-Change the response type. The JSON contains either the HTML or messages
-indicating why the SciolyFF input is not valid.
+  Change the response type. The JSON contains either the HTML or messages
+  indicating why the SciolyFF input is not valid.
 
-###`?hide_raw={true,false}`
+- `?hide_raw={true,false}`
 
-Replace the raw results in the input with just places in the SciolyFF file
-embeded in the generated HTML.
+  Replace the raw results in the input with just places in the SciolyFF file
+  embeded in the generated HTML.
 
-###`?color={hex color}`
+- `?color={hex color}`
 
-Changes the color of the background header in the generated HTML results.
+  Changes the color of the background header in the generated HTML results.
 
 ## Example
 
