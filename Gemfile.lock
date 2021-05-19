@@ -2,10 +2,10 @@ GEM
   remote: https://rubygems.org/
   specs:
     erubi (1.9.0)
-    nio4r (2.5.2)
+    nio4r (2.5.7)
     optimist (3.0.1)
     psych (3.1.0)
-    puma (4.3.5)
+    puma (4.3.8)
       nio4r (~> 2.0)
     rack (2.2.3)
     sciolyff (0.12.0)
