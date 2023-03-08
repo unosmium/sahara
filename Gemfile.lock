@@ -7,7 +7,7 @@ GEM
     psych (3.1.0)
     puma (4.3.5)
       nio4r (~> 2.0)
-    rack (2.2.3)
+    rack (2.2.6.3)
     sciolyff (0.12.0)
       erubi (~> 1.9)
       optimist (~> 3.0)
